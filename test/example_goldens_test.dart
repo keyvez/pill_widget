@@ -43,10 +43,19 @@ void main() {
         useMaterial3: true,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white,
+        // Dark background for the scaffold to verify we aren't capturing it
+        backgroundColor: Colors.grey, 
         body: Center(
-          child: IntrinsicWidth(
-            child: child,
+          child: RepaintBoundary(
+            key: const ValueKey('golden-boundary'),
+            child: Container(
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: child,
+            ),
           ),
         ),
       ),
@@ -68,7 +77,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/basic_pills.png'),
     );
   });
@@ -94,7 +103,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/editable_pills.png'),
     );
   });
@@ -118,7 +127,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/styled_pills.png'),
     );
   });
@@ -154,7 +163,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/styled_values_pills.png'),
     );
   });
@@ -197,7 +206,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/custom_pills.png'),
     );
   });
@@ -220,7 +229,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/readonly_pills.png'),
     );
   });
@@ -242,7 +251,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await expectLater(
-      find.byType(Wrap),
+      find.byKey(const ValueKey('golden-boundary')),
       matchesGoldenFile('../screenshots/expandable_pills.png'),
     );
   });
