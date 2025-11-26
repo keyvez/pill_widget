@@ -43,13 +43,12 @@ void main() {
         useMaterial3: true,
       ),
       home: Scaffold(
-        // Dark background for the scaffold to verify we aren't capturing it
         backgroundColor: Colors.grey, 
         body: Center(
           child: RepaintBoundary(
             key: const ValueKey('golden-boundary'),
             child: Container(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
