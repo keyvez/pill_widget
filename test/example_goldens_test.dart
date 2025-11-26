@@ -5,13 +5,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pill_widget/pill_widget.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUpAll(() async {
-    final fontFile = File('test/fonts/Roboto-Regular.ttf');
-    if (fontFile.existsSync()) {
-      final fontData = await fontFile.readAsBytes();
+    final fontPath = '${Directory.current.path}/test/fonts/Roboto-Regular.ttf';
+    final fontFile = File(fontPath);
+    
+    if (!fontFile.existsSync()) {
+      print('⚠️ Font file not found at: $fontPath');
+      return;
+    }
+
+    try {
       final fontLoader = FontLoader('Roboto');
-      fontLoader.addFont(Future.value(ByteData.view(fontData.buffer)));
+      
+      final regularData = await fontFile.readAsBytes();
+      fontLoader.addFont(Future.value(ByteData.view(regularData.buffer)));
+
+      final boldFile = File('${Directory.current.path}/test/fonts/Roboto-Bold.ttf');
+      if (boldFile.existsSync()) {
+        final boldData = await boldFile.readAsBytes();
+        fontLoader.addFont(Future.value(ByteData.view(boldData.buffer)));
+      }
+
       await fontLoader.load();
+      print('✅ Loaded font Roboto (Regular & Bold) from test/fonts/');
+    } catch (e) {
+      print('❌ Failed to load font: $e');
     }
   });
 
@@ -23,7 +43,6 @@ void main() {
         useMaterial3: true,
       ),
       home: Scaffold(
-        // White background for screenshots
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
