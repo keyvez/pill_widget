@@ -271,6 +271,7 @@ class Pill extends StatefulWidget {
     super.key,
     required this.label,
     this.value,
+    this.summary,
     this.onValueChanged,
     this.style,
     this.editable = true,
@@ -286,6 +287,12 @@ class Pill extends StatefulWidget {
   /// If null, the pill displays only the [label].
   /// If non-null and [editable] is true, tapping the pill enables inline editing.
   final String? value;
+
+  /// A shorter version of the value to be displayed when the pill is collapsed.
+  ///
+  /// If provided and the pill is not expanded, this text is shown instead of
+  /// the [value]. This is useful for long text that should be summarized initially.
+  final String? summary;
 
   /// Called when the user finishes editing the value.
   ///
@@ -463,26 +470,26 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
                 top: 8.0,
                 bottom: 8.0,
               ),
-              child: Container(
-                height: _valueHeight,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: 1.0,
-                  child: _isExpanded
-                      ? Text(
-                          widget.value!,
-                          style: valueTextStyle,
-                          strutStyle: _valueStrutStyle,
-                        )
-                      : Text(
-                          widget.value!,
+              child: _isExpanded
+                  ? Text(
+                      widget.value!,
+                      style: valueTextStyle,
+                      strutStyle: _valueStrutStyle,
+                    )
+                  : Container(
+                      height: _valueHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        widthFactor: 1.0,
+                        child: Text(
+                          widget.summary ?? widget.value!,
                           style: valueTextStyle,
                           strutStyle: _valueStrutStyle,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
-                ),
-              ),
+                      ),
+                    ),
             ),
           ),
         ],

@@ -332,6 +332,31 @@ void main() {
       final textWidget = tester.widget<Text>(find.text('Text'));
       expect(textWidget.overflow, null); // It expanded
     });
+
+    testWidgets('shows summary when provided and collapsed', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Desc',
+              value: 'Full Text',
+              summary: 'Summary',
+              expandable: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Summary'), findsOneWidget);
+      expect(find.text('Full Text'), findsNothing);
+
+      // Tap to expand
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      expect(find.text('Full Text'), findsOneWidget);
+      expect(find.text('Summary'), findsNothing);
+    });
   });
 
   group('Pill Layout', () {
