@@ -35,9 +35,7 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pill Widget Example'),
-      ),
+      appBar: AppBar(title: const Text('Pill Widget Example')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -213,9 +211,15 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
               runSpacing: 8,
               children: [
                 Pill(
-                  label: 'Description',
+                  label: 'Story',
                   value:
-                      'This is a very long description that will be truncated by default but can be expanded by tapping on the pill. It demonstrates the expandable feature.',
+                      '''From 1340, English monarchs, beginning with the Plantagenet king Edward III, asserted that they were the rightful kings of France. They fought the Hundred Years' War (1337–1453) in part to enforce this claim, though ultimately without success. From the early 16th century, the claim had lost any realistic prospect of fulfilment, but every English and later British monarch from Edward III to George III styled themselves king or queen of France until 1801.
+
+                      Edward's claim was through his mother, Isabella, sister of the last direct-line Capetian king of France, Charles IV. Women were excluded from inheriting the French crown and Edward was Charles's nearest male relative. On Charles's death in 1328, however, the French magnates supported Philip VI, who became the first king of the House of Valois, a cadet branch of the Capetian dynasty. Philip was Charles's nearest male-line relative. French jurists much later argued that it was a fundamental law of the kingdom that the crown could not be inherited through the female line. This was supposedly based on the 6th-century Frankish legal code known as the Salic law; however, the Salic law was not mentioned in connection with Edward's claim until the 15th century, and the link to it was tenuous in any case.
+
+                      Edward, whose main concern was to protect his French fief of Gascony, spent much of his reign at war with the Valois kings but never secured the crown. His great-grandson, Henry V, following his crushing victory at Agincourt, was able to impose the Treaty of Troyes on the French in 1420. This stipulated that he and his heirs would succeed the Valois king Charles VI on his death. Both kings died in 1422, and Henry's son Henry VI was crowned king of both countries, creating the so-called "dual monarchy". However, he was not recognised as king in southern France. French resistance to the dual monarchy resulted in the English being expelled from France by 1453, ending the Hundred Years' War, and leaving Calais as the last remaining English possession there.
+
+                      Later English attempts to win the French throne failed, the last being an invasion by Henry VIII in 1523. Calais was lost in 1558. England and France continued to fight wars but none was over the claim to the crown. The use of the title by English and later by British monarchs was ignored by the French, as the claim had long ceased to have any practical significance. However, following the French Revolution, the new republican government of France objected to the practice and the title was no longer used from 1801. The claim was finally abandoned the following year.''',
                   expandable: true,
                   style: PillStyles.neutral,
                 ),

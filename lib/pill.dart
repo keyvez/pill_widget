@@ -460,6 +460,7 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
                       style: valueTextStyle,
                       strutStyle: _valueStrutStyle,
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
             ),
           ),
