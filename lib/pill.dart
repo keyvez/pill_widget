@@ -420,10 +420,14 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
         padding: const EdgeInsets.only(
           left: 16.0,
           right: 16.0,
-          top: 7.0,
-          bottom: 9.0,
+          top: 8.0,
+          bottom: 8.0,
         ),
-        child: Text(widget.label, style: labelStyle),
+        child: Container(
+          height: _valueHeight,
+          alignment: Alignment.center,
+          child: Text(widget.label, style: labelStyle),
+        ),
       );
     } else {
       final valueTextStyle = _valueTextStyle(context);
@@ -435,10 +439,14 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             padding: const EdgeInsets.only(
               left: 16.0,
               right: 8.5,
-              top: 6.0,
+              top: 8.0,
               bottom: 8.0,
             ),
-            child: Text(widget.label, style: labelStyle),
+            child: Container(
+              height: _valueHeight,
+              alignment: Alignment.center,
+              child: Text(widget.label, style: labelStyle),
+            ),
           ),
           _PillDivider(color: _dividerColor),
           Flexible(
@@ -449,19 +457,26 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
                 top: 8.0,
                 bottom: 8.0,
               ),
-              child: _isExpanded
-                  ? Text(
-                      widget.value!,
-                      style: valueTextStyle,
-                      strutStyle: _valueStrutStyle,
-                    )
-                  : Text(
-                      widget.value!,
-                      style: valueTextStyle,
-                      strutStyle: _valueStrutStyle,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+              child: Container(
+                height: _valueHeight,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: 1.0,
+                  child: _isExpanded
+                      ? Text(
+                          widget.value!,
+                          style: valueTextStyle,
+                          strutStyle: _valueStrutStyle,
+                        )
+                      : Text(
+                          widget.value!,
+                          style: valueTextStyle,
+                          strutStyle: _valueStrutStyle,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                ),
+              ),
             ),
           ),
         ],
@@ -485,10 +500,14 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
           padding: const EdgeInsets.only(
             left: 16.0,
             right: 8.5,
-            top: 6.0,
+            top: 8.0,
             bottom: 8.0,
           ),
-          child: Text(widget.label, style: labelStyle),
+          child: Container(
+            height: _valueHeight,
+            alignment: Alignment.center,
+            child: Text(widget.label, style: labelStyle),
+          ),
         ),
         _PillDivider(color: _dividerColor),
         Padding(
@@ -498,8 +517,8 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             top: 8.0,
             bottom: 8.0,
           ),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: _valueHeight),
+          child: Container(
+            height: _valueHeight,
             child: Align(
               alignment: Alignment.centerLeft,
               child: LayoutBuilder(
