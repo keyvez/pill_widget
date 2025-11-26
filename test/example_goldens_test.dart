@@ -45,8 +45,7 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+          child: IntrinsicWidth(
             child: child,
           ),
         ),
