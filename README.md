@@ -9,6 +9,13 @@ A customizable pill/chip widget for Flutter with inline editing support. Display
 - Clean pill-shaped design with customizable appearance
 - Lightweight with no external dependencies
 
+## Screenshots
+
+|   |   |
+|---|---|
+| ![Screenshot 1](screenshots/example_1.png) | ![Screenshot 2](screenshots/example_2.png) |
+| ![Screenshot 3](screenshots/example_3.png) | ![Screenshot 4](screenshots/example_4.png) |
+
 ## Installation
 
 Add this to your package's `pubspec.yaml` file:
