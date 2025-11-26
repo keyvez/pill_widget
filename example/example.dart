@@ -84,7 +84,7 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
                   },
                 ),
                 Pill(
-                  label: 'Email',
+                  label: 'Email Address',
                   value: _email,
                   onValueChanged: (newValue) {
                     setState(() {

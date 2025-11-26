@@ -9,6 +9,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 - **Comprehensive styling with `PillStyle`**
 - **8 predefined color presets via `PillStyles`**
 - **Read-only mode with `editable` parameter**
+- **Editable pills are content-width**
 - **Expandable mode for long text with `expandable` parameter**
 - **Tap handling with `onTap` callback**
 - Clean pill-shaped design
