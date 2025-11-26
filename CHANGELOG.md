@@ -1,3 +1,12 @@
+## 1.0.0
+
+* **Breaking:** Standardized height to 40.0 (24.0 content + padding) for all pill states to prevent layout jumps.
+* **Feature:** Added `expandable` property to allow pills to expand on tap for long text.
+* **Feature:** Added `summary` property to show a shorter initial value when collapsed.
+* **Improvement:** Editable pills now dynamically resize width to fit content during typing.
+* **Improvement:** All pill states now hug their content width tightly.
+* **Documentation:** Updated README with new screenshots and usage examples.
+
 ## 0.1.0
 
 * **Breaking:** Added `PillStyle` class for comprehensive style customization
