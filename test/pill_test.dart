@@ -265,4 +265,72 @@ void main() {
       expect(merged.backgroundColor, Colors.blue);
     });
   });
+
+  group('Pill expandable', () {
+    testWidgets('toggles expansion on tap when expandable is true',
+        (tester) async {
+      const longText = 'This is a very long text that should be truncated';
+      
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Desc',
+              value: longText,
+              expandable: true,
+            ),
+          ),
+        ),
+      );
+
+      // Initial state: Truncated
+      final textFinder = find.text(longText);
+      expect(textFinder, findsOneWidget);
+      
+      final truncatedText = tester.widget<Text>(textFinder);
+      expect(truncatedText.overflow, TextOverflow.ellipsis);
+
+      // Tap to expand
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      // Expanded state
+      final expandedText = tester.widget<Text>(textFinder);
+      expect(expandedText.overflow, null);
+
+      // Tap to collapse
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      // Back to truncated
+      final collapsedText = tester.widget<Text>(textFinder);
+      expect(collapsedText.overflow, TextOverflow.ellipsis);
+    });
+
+    testWidgets('does not enter edit mode when expandable is true',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Desc',
+              value: 'Text',
+              expandable: true,
+              editable: true, // Both true
+              onValueChanged: (_) {},
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      // Should expand (toggle overflow), not show TextField
+      expect(find.byType(TextField), findsNothing);
+      
+      final textWidget = tester.widget<Text>(find.text('Text'));
+      expect(textWidget.overflow, null); // It expanded
+    });
+  });
 }

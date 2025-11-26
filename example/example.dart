@@ -197,6 +197,39 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
 
             const SizedBox(height: 24),
 
+            // Expandable Pill
+            const Text(
+              'Expandable Pill',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Tap to expand/collapse long content',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Pill(
+                  label: 'Description',
+                  value:
+                      'This is a very long description that will be truncated by default but can be expanded by tapping on the pill. It demonstrates the expandable feature.',
+                  expandable: true,
+                  style: PillStyles.neutral,
+                ),
+                Pill(
+                  label: 'Notes',
+                  value: 'Short note',
+                  expandable: true,
+                  style: PillStyles.muted,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
             // Read-only with onTap
             const Text(
               'Read-only with Tap Handler',

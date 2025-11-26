@@ -274,6 +274,7 @@ class Pill extends StatefulWidget {
     this.onValueChanged,
     this.style,
     this.editable = true,
+    this.expandable = false,
     this.onTap,
   });
 
@@ -303,6 +304,15 @@ class Pill extends StatefulWidget {
   /// Defaults to true. Set to false to display a read-only pill with a value.
   final bool editable;
 
+  /// Whether the pill expands to show the full value when tapped.
+  ///
+  /// If true, tapping the pill toggles between single-line (truncated) and
+  /// multi-line (full) display of the [value].
+  /// This takes precedence over [editable] - if both are true, tap will expand.
+  ///
+  /// Defaults to false.
+  final bool expandable;
+
   /// Called when the pill is tapped.
   ///
   /// This is called regardless of whether the pill is editable. If [editable]
@@ -315,6 +325,7 @@ class Pill extends StatefulWidget {
 
 class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
   bool _isEditing = false;
+  bool _isExpanded = false;
   late TextEditingController _textController;
   late FocusNode _focusNode;
 
@@ -379,7 +390,11 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
     return GestureDetector(
       onTap: () {
         widget.onTap?.call();
-        if (widget.value != null && widget.editable) {
+        if (widget.expandable) {
+          setState(() {
+            _isExpanded = !_isExpanded;
+          });
+        } else if (widget.value != null && widget.editable) {
           setState(() {
             _isEditing = true;
           });
@@ -434,18 +449,24 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
                 top: 8.0,
                 bottom: 8.0,
               ),
-              child: SizedBox(
-                height: _valueHeight,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.value!,
-                    style: valueTextStyle,
-                    strutStyle: _valueStrutStyle,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
+              child: _isExpanded
+                  ? Text(
+                      widget.value!,
+                      style: valueTextStyle,
+                      strutStyle: _valueStrutStyle,
+                    )
+                  : SizedBox(
+                      height: _valueHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.value!,
+                          style: valueTextStyle,
+                          strutStyle: _valueStrutStyle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
             ),
           ),
         ],

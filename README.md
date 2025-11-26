@@ -9,6 +9,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 - **Comprehensive styling with `PillStyle`**
 - **8 predefined color presets via `PillStyles`**
 - **Read-only mode with `editable` parameter**
+- **Expandable mode for long text with `expandable` parameter**
 - **Tap handling with `onTap` callback**
 - Clean pill-shaped design
 - Lightweight with no external dependencies
@@ -20,6 +21,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 | **Basic Pills**<br>![Basic Pills](screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](screenshots/editable_pills.png) |
 | **Styled Pills**<br>![Styled Pills](screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](screenshots/styled_values_pills.png) |
 | **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
+| **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) | |
 
 ## Installation
 
@@ -113,6 +115,16 @@ Pill(
 )
 ```
 
+### Expandable Pill
+
+```dart
+Pill(
+  label: 'Description',
+  value: 'Long text that will be truncated...',
+  expandable: true,
+)
+```
+
 ## API Reference
 
 ### Pill
@@ -124,6 +136,7 @@ Pill(
 | `onValueChanged` | `ValueChanged<String>?` | Optional. Callback fired when the value is changed through inline editing. |
 | `style` | `PillStyle?` | Optional. Style configuration for customizing appearance. |
 | `editable` | `bool` | Whether the value can be edited. Defaults to `true`. |
+| `expandable` | `bool` | Whether the pill expands on tap. Defaults to `false`. |
 | `onTap` | `VoidCallback?` | Optional. Callback fired when the pill is tapped. |
 
 ### PillStyle

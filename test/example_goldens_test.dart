@@ -225,4 +225,26 @@ void main() {
       matchesGoldenFile('../screenshots/readonly_pills.png'),
     );
   });
+
+  testWidgets('Expandable Pills Golden', (tester) async {
+    await tester.pumpWidget(buildTestWrapper(
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          Pill(
+            label: 'Description',
+            value: 'Long text that will be truncated by default.',
+            expandable: true,
+            style: PillStyles.neutral,
+          ),
+        ],
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(Wrap),
+      matchesGoldenFile('../screenshots/expandable_pills.png'),
+    );
+  });
 }
