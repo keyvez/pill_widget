@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
 
+/// A pill-shaped widget that displays a label and an optional editable value.
+///
+/// The [Pill] widget is designed to show a tag or property in a compact form.
+/// It consists of a [label] on the left and an optional [value] on the right.
+///
+/// If [value] is provided, the pill displays a separator line between the label
+/// and the value. When the user taps on the pill, it switches to an editing mode
+/// (if [value] is not null), allowing the user to modify the text.
+///
+/// When editing is finished (by submitting or losing focus), the [onValueChanged]
+/// callback is triggered with the new value.
 class Pill extends StatefulWidget {
+  /// Creates a [Pill] widget.
+  ///
+  /// The [label] parameter is required.
+  /// If [value] is null, the pill will display only the label.
   const Pill({super.key, required this.label, this.value, this.onValueChanged});
 
+  /// The text displayed on the left side of the pill.
   final String label;
+
+  /// The text displayed on the right side of the pill.
+  ///
+  /// If null, the pill displays only the [label].
+  /// If non-null, tapping the pill enables inline editing.
   final String? value;
+
+  /// Called when the user finishes editing the value.
+  ///
+  /// This callback is invoked with the new text string when the user submits
+  /// the change (e.g., presses Enter) or when the text field loses focus.
   final ValueChanged<String>? onValueChanged;
 
   @override

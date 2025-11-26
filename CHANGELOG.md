@@ -1,3 +1,8 @@
+## 0.0.3
+
+* Added API documentation for `Pill` widget and its properties
+* Improved pub points score by addressing missing documentation
+
 ## 0.0.2
 
 * Added screenshots to README documentation
