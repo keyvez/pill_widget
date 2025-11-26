@@ -425,8 +425,11 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
         ),
         child: Container(
           height: _valueHeight,
-          alignment: Alignment.center,
-          child: Text(widget.label, style: labelStyle),
+          child: Align(
+            alignment: Alignment.center,
+            widthFactor: 1.0,
+            child: Text(widget.label, style: labelStyle),
+          ),
         ),
       );
     } else {
@@ -444,8 +447,11 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             ),
             child: Container(
               height: _valueHeight,
-              alignment: Alignment.center,
-              child: Text(widget.label, style: labelStyle),
+              child: Align(
+                alignment: Alignment.center,
+                widthFactor: 1.0,
+                child: Text(widget.label, style: labelStyle),
+              ),
             ),
           ),
           _PillDivider(color: _dividerColor),
@@ -505,8 +511,11 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
           ),
           child: Container(
             height: _valueHeight,
-            alignment: Alignment.center,
-            child: Text(widget.label, style: labelStyle),
+            child: Align(
+              alignment: Alignment.center,
+              widthFactor: 1.0,
+              child: Text(widget.label, style: labelStyle),
+            ),
           ),
         ),
         _PillDivider(color: _dividerColor),

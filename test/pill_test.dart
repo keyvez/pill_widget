@@ -333,4 +333,88 @@ void main() {
       expect(textWidget.overflow, null); // It expanded
     });
   });
+
+  group('Pill Layout', () {
+    testWidgets('pill hugs content width when label only', (tester) async {
+      // We place the pill in a Center within a SizedBox of width 500.
+      // If it expands, it will take up 500 width.
+      // If it hugs content, it will be much smaller.
+      
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 500,
+                child: Center( // Center allows child to shrink
+                  child: Pill(label: 'Short'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final pillFinder = find.byType(Pill);
+      final pillSize = tester.getSize(pillFinder);
+
+      // "Short" + padding + borders is definitely less than 200, and way less than 500.
+      expect(pillSize.width, lessThan(200));
+    });
+
+    testWidgets('pill hugs content width when label and value present', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 500,
+                child: Center(
+                  child: Pill(label: 'Key', value: 'Value'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final pillFinder = find.byType(Pill);
+      final pillSize = tester.getSize(pillFinder);
+
+      // "Key" + divider + "Value" + padding is likely under 250.
+      expect(pillSize.width, lessThan(250));
+    });
+
+    testWidgets('pill hugs content width when editing', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 500,
+                child: Center(
+                  child: Pill(
+                    label: 'Key',
+                    value: 'Short',
+                    onValueChanged: (_) {},
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Tap to edit
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      final pillFinder = find.byType(Pill);
+      final pillSize = tester.getSize(pillFinder);
+
+      // Even when editing "Short", it shouldn't blow up to 500 width.
+      // It should be roughly the same size as displayed version.
+      expect(pillSize.width, lessThan(250));
+    });
+  });
 }
