@@ -220,15 +220,10 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
                       Edward, whose main concern was to protect his French fief of Gascony, spent much of his reign at war with the Valois kings but never secured the crown. His great-grandson, Henry V, following his crushing victory at Agincourt, was able to impose the Treaty of Troyes on the French in 1420. This stipulated that he and his heirs would succeed the Valois king Charles VI on his death. Both kings died in 1422, and Henry's son Henry VI was crowned king of both countries, creating the so-called "dual monarchy". However, he was not recognised as king in southern France. French resistance to the dual monarchy resulted in the English being expelled from France by 1453, ending the Hundred Years' War, and leaving Calais as the last remaining English possession there.
 
                       Later English attempts to win the French throne failed, the last being an invasion by Henry VIII in 1523. Calais was lost in 1558. England and France continued to fight wars but none was over the claim to the crown. The use of the title by English and later by British monarchs was ignored by the French, as the claim had long ceased to have any practical significance. However, following the French Revolution, the new republican government of France objected to the practice and the title was no longer used from 1801. The claim was finally abandoned the following year.''',
-                  summary: 'English claim to the French throne (1340–1801)',
+                  summary:
+                      'English claim to the French throne (1340–1801) (tap to see more)',
                   expandable: true,
                   style: PillStyles.neutral,
-                ),
-                Pill(
-                  label: 'Notes',
-                  value: 'Short note',
-                  expandable: true,
-                  style: PillStyles.muted,
                 ),
               ],
             ),

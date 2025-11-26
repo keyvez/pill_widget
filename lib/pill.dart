@@ -537,50 +537,32 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             height: _valueHeight,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final textSpan = TextSpan(
-                    text: _textController.text,
-                    style: valueTextStyle,
-                  );
-                  final textPainter = TextPainter(
-                    text: textSpan,
-                    textDirection: Directionality.of(context),
-                    maxLines: 1,
-                  )..layout(minWidth: 0, maxWidth: constraints.maxWidth);
-
-                  // Add a small buffer for the cursor and to prevent jitter
-                  final textWidth = textPainter.width + 10.0;
-
-                  return SizedBox(
-                    width: textWidth,
-                    child: TextField(
-                      controller: _textController,
-                      focusNode: _focusNode,
-                      autofocus: true,
-                      maxLines: 1,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: const InputDecoration(
-                        isDense: true,
-                        isCollapsed: true,
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                        constraints: BoxConstraints.tightFor(height: _valueHeight),
-                      ),
-                      style: valueTextStyle,
-                      strutStyle: _valueStrutStyle,
-                      cursorHeight: valueTextStyle.fontSize,
-                      cursorColor: _valueColor,
-                      onSubmitted: (newValue) {
-                        _commitEditingValue();
-                        setState(() {
-                          _isEditing = false;
-                        });
-                        _focusNode.unfocus();
-                      },
-                    ),
-                  );
-                },
+              child: IntrinsicWidth(
+                child: TextField(
+                  controller: _textController,
+                  focusNode: _focusNode,
+                  autofocus: true,
+                  maxLines: 1,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    isDense: true,
+                    isCollapsed: true,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                    constraints: BoxConstraints.tightFor(height: _valueHeight),
+                  ),
+                  style: valueTextStyle,
+                  strutStyle: _valueStrutStyle,
+                  cursorHeight: valueTextStyle.fontSize,
+                  cursorColor: _valueColor,
+                  onSubmitted: (newValue) {
+                    _commitEditingValue();
+                    setState(() {
+                      _isEditing = false;
+                    });
+                    _focusNode.unfocus();
+                  },
+                ),
               ),
             ),
           ),
