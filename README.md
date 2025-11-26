@@ -24,6 +24,20 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 | **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
 | **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) | |
 
+## Videos
+
+### Editable Pill: Dynamic Width during editing
+<video controls width="100%">
+  <source src="https://github.com/keyvez/pill_widget/raw/main/videos/editable_pill_editing.mov" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
+
+### Expandable Pill: Expanding and Collapsing
+<video controls width="100%">
+  <source src="https://github.com/keyvez/pill_widget/raw/main/videos/expandable_pill_expanding.mov" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
+
 ## Installation
 
 Add this to your package's `pubspec.yaml` file:
