@@ -15,10 +15,11 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 
 ## Screenshots
 
-|   |   |
+| | |
 |---|---|
-| ![Screenshot 1](screenshots/example_1.png) | ![Screenshot 2](screenshots/example_2.png) |
-| ![Screenshot 3](screenshots/example_3.png) | ![Screenshot 4](screenshots/example_4.png) |
+| **Basic Pills**<br>![Basic Pills](screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](screenshots/editable_pills.png) |
+| **Styled Pills**<br>![Styled Pills](screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](screenshots/styled_values_pills.png) |
+| **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
 
 ## Installation
 
