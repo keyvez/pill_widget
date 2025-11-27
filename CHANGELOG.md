@@ -1,3 +1,8 @@
+## 1.0.1
+
+* **Fix:** Updated README to embed YouTube videos for demos.
+* Removed local video files to reduce repository size.
+
 ## 1.0.0
 
 * **Breaking:** Standardized height to 40.0 (24.0 content + padding) for all pill states to prevent layout jumps.
