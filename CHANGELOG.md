@@ -1,3 +1,9 @@
+## 1.1.1
+
+* **Docs:** Added screenshot for selectable pills.
+* **Docs:** Regenerated all screenshots.
+* **Docs:** Updated README with selectable pills usage, API reference, and feature listing.
+
 ## 1.1.0
 
 * **Feature:** Added `selected` property to display pills in a selected/chosen state with tinted background and thicker border.

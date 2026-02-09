@@ -233,6 +233,38 @@ void main() {
     );
   });
 
+  testWidgets('Selectable Pills Golden', (tester) async {
+    await tester.pumpWidget(buildTestWrapper(
+      const Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          Pill(label: 'Default', selected: true),
+          Pill(label: 'Success', selected: true, style: PillStyles.success),
+          Pill(
+            label: 'With Check',
+            selected: true,
+            showCheckIcon: true,
+            style: PillStyles.info,
+          ),
+          Pill(
+            label: 'Plan',
+            value: 'Premium',
+            selected: true,
+            showCheckIcon: true,
+            editable: false,
+            style: PillStyles.special,
+          ),
+        ],
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byKey(const ValueKey('golden-boundary')),
+      matchesGoldenFile('../screenshots/selectable_pills.png'),
+    );
+  });
+
   testWidgets('Expandable Pills Golden', (tester) async {
     await tester.pumpWidget(buildTestWrapper(
       Wrap(

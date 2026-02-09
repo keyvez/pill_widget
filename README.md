@@ -11,6 +11,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 - **Read-only mode with `editable` parameter**
 - **Editable pills are content-width**
 - **Expandable mode for long text with `expandable` parameter**
+- **Selectable state with `selected` and optional check icon**
 - **Tap handling with `onTap` callback**
 - Clean pill-shaped design
 - Lightweight with no external dependencies
@@ -22,7 +23,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 | **Basic Pills**<br>![Basic Pills](screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](screenshots/editable_pills.png) |
 | **Styled Pills**<br>![Styled Pills](screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](screenshots/styled_values_pills.png) |
 | **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
-| **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) | |
+| **Selectable Pills**<br>![Selectable Pills](screenshots/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) |
 
 ## Videos
 
@@ -124,6 +125,18 @@ Pill(
 )
 ```
 
+### Selectable Pill
+
+```dart
+Pill(
+  label: 'Option',
+  selected: _isSelected,
+  showCheckIcon: true,
+  style: PillStyles.info,
+  onTap: () => setState(() => _isSelected = !_isSelected),
+)
+```
+
 ### Expandable Pill
 
 ```dart
@@ -146,6 +159,8 @@ Pill(
 | `style` | `PillStyle?` | Optional. Style configuration for customizing appearance. |
 | `editable` | `bool` | Whether the value can be edited. Defaults to `true`. |
 | `expandable` | `bool` | Whether the pill expands on tap. Defaults to `false`. |
+| `selected` | `bool` | Whether the pill is in a selected state. Defaults to `false`. |
+| `showCheckIcon` | `bool` | Whether to show a check icon when selected. Defaults to `false`. |
 | `onTap` | `VoidCallback?` | Optional. Callback fired when the pill is tapped. |
 
 ### PillStyle
@@ -162,6 +177,9 @@ Pill(
 | `labelFontWeight` | `FontWeight?` | bold | Font weight of the label. |
 | `valueFontWeight` | `FontWeight?` | normal | Font weight of the value. |
 | `fontSize` | `double?` | theme default | Font size for text. |
+| `selectedBackgroundColor` | `Color?` | borderColor at 15% opacity | Background color when selected. |
+| `selectedBorderColor` | `Color?` | borderColor | Border color when selected. |
+| `selectedBorderWidth` | `double?` | 2.0 | Border width when selected. |
 
 ### PillStyles (Presets)
 
