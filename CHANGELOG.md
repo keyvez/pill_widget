@@ -1,3 +1,7 @@
+## 1.2.1
+
+* **Docs:** Fixed screenshots not displaying on pub.dev by using absolute URLs.
+
 ## 1.2.0
 
 * **Feature:** `label` and `value` now accept a `Widget` in addition to `String`, enabling arbitrary widget content inside pills.
