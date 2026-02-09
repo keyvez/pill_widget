@@ -1,3 +1,9 @@
+## 1.2.2
+
+* **Docs:** Added light mode and dark mode screenshot sets.
+* **Docs:** Updated README with separate Light Mode and Dark Mode screenshot sections.
+* **Improvement:** Golden tests now generate both light and dark variants.
+
 ## 1.2.1
 
 * **Docs:** Fixed screenshots not displaying on pub.dev by using absolute URLs.
