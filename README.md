@@ -20,25 +20,13 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 
 ## Screenshots
 
-### Light Mode
-
 | | |
 |---|---|
-| **Basic Pills**<br>![Basic Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/basic_pills.png) | **Editable Pills**<br>![Editable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/editable_pills.png) |
-| **Styled Pills**<br>![Styled Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/styled_values_pills.png) |
-| **Custom Styles**<br>![Custom Styles](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/custom_pills.png) | **Read-only**<br>![Read-only](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/readonly_pills.png) |
-| **Selectable Pills**<br>![Selectable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/expandable_pills.png) |
-| **Custom Widget Content**<br>![Widget Content](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/light/widget_content_pills.png) | |
-
-### Dark Mode
-
-| | |
-|---|---|
-| **Basic Pills**<br>![Basic Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/basic_pills.png) | **Editable Pills**<br>![Editable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/editable_pills.png) |
-| **Styled Pills**<br>![Styled Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/styled_values_pills.png) |
-| **Custom Styles**<br>![Custom Styles](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/custom_pills.png) | **Read-only**<br>![Read-only](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/readonly_pills.png) |
-| **Selectable Pills**<br>![Selectable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/expandable_pills.png) |
-| **Custom Widget Content**<br>![Widget Content](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/dark/widget_content_pills.png) | |
+| **Basic Pills**<br>![Basic Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/editable_pills.png) |
+| **Styled Pills**<br>![Styled Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/styled_values_pills.png) |
+| **Custom Styles**<br>![Custom Styles](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/custom_pills.png) | **Read-only**<br>![Read-only](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/readonly_pills.png) |
+| **Selectable Pills**<br>![Selectable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/expandable_pills.png) |
+| **Custom Widget Content**<br>![Widget Content](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/widget_content_pills.png) | |
 
 ## Videos
 
