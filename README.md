@@ -6,6 +6,8 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 
 - Display a label-only pill or a label with an editable value
 - Inline editing with tap-to-edit functionality
+- **Widget support for `label` and `value`** — pass a `String` or any `Widget`
+- **`leading` and `trailing` widget slots** for icons, badges, etc.
 - **Comprehensive styling with `PillStyle`**
 - **8 predefined color presets via `PillStyles`**
 - **Read-only mode with `editable` parameter**
@@ -24,6 +26,7 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 | **Styled Pills**<br>![Styled Pills](screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](screenshots/styled_values_pills.png) |
 | **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
 | **Selectable Pills**<br>![Selectable Pills](screenshots/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) |
+| **Custom Widget Content**<br>![Widget Content](screenshots/widget_content_pills.png) | |
 
 ## Videos
 
@@ -147,17 +150,64 @@ Pill(
 )
 ```
 
+### Pill with Leading/Trailing Widgets
+
+```dart
+Pill(
+  label: 'Settings',
+  leading: Icon(Icons.settings, size: 16),
+  style: PillStyles.neutral,
+)
+
+Pill(
+  label: 'Next',
+  trailing: Icon(Icons.arrow_forward, size: 16),
+  style: PillStyles.info,
+)
+```
+
+### Pill with Widget Label or Value
+
+```dart
+// Widget as label
+Pill(
+  label: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.star, size: 16, color: Colors.amber),
+      SizedBox(width: 4),
+      Text('Featured'),
+    ],
+  ),
+)
+
+// Widget as value
+Pill(
+  label: 'User',
+  value: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.person, size: 16),
+      SizedBox(width: 4),
+      Text('Jane Doe'),
+    ],
+  ),
+)
+```
+
 ## API Reference
 
 ### Pill
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `label` | `String` | Required. The label text displayed on the left side of the pill. |
-| `value` | `String?` | Optional. The value displayed on the right side. When null, only the label is shown. |
+| `label` | `String` or `Widget` | Required. The label displayed on the left side of the pill. |
+| `value` | `String?`, `Widget?` | Optional. The value displayed on the right side. When null, only the label is shown. When a `Widget`, editing is disabled. |
+| `leading` | `Widget?` | Optional. A widget rendered before the label inside the pill border. |
+| `trailing` | `Widget?` | Optional. A widget rendered after the value (or label) inside the pill border. |
 | `onValueChanged` | `ValueChanged<String>?` | Optional. Callback fired when the value is changed through inline editing. |
 | `style` | `PillStyle?` | Optional. Style configuration for customizing appearance. |
-| `editable` | `bool` | Whether the value can be edited. Defaults to `true`. |
+| `editable` | `bool` | Whether the value can be edited (only applies to String values). Defaults to `true`. |
 | `expandable` | `bool` | Whether the pill expands on tap. Defaults to `false`. |
 | `selected` | `bool` | Whether the pill is in a selected state. Defaults to `false`. |
 | `showCheckIcon` | `bool` | Whether to show a check icon when selected. Defaults to `false`. |

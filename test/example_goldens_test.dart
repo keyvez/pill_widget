@@ -307,6 +307,55 @@ void main() {
     );
   });
 
+  testWidgets('Custom Widget Content Golden', (tester) async {
+    await tester.pumpWidget(buildTestWrapper(
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          const Pill(
+            label: 'Settings',
+            leading: Icon(Icons.settings, size: 16),
+            style: PillStyles.neutral,
+          ),
+          const Pill(
+            label: 'Next',
+            trailing: Icon(Icons.arrow_forward, size: 16),
+            style: PillStyles.info,
+          ),
+          Pill(
+            label: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.star, size: 16, color: Colors.amber),
+                SizedBox(width: 4),
+                Text('Featured'),
+              ],
+            ),
+            style: PillStyles.warning,
+          ),
+          Pill(
+            label: 'User',
+            value: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.person, size: 16),
+                SizedBox(width: 4),
+                Text('Jane Doe'),
+              ],
+            ),
+            style: PillStyles.special,
+          ),
+        ],
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byKey(const ValueKey('golden-boundary')),
+      matchesGoldenFile('../screenshots/widget_content_pills.png'),
+    );
+  });
+
   testWidgets('Expandable Pills Golden', (tester) async {
     await tester.pumpWidget(buildTestWrapper(
       Wrap(

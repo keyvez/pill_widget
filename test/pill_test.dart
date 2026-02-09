@@ -542,6 +542,150 @@ void main() {
     });
   });
 
+  group('Pill leading/trailing and Widget content', () {
+    testWidgets('renders leading widget', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Settings',
+              leading: Icon(Icons.settings),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.settings), findsOneWidget);
+      expect(find.text('Settings'), findsOneWidget);
+    });
+
+    testWidgets('renders trailing widget', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Next',
+              trailing: Icon(Icons.arrow_forward),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.arrow_forward), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
+    });
+
+    testWidgets('renders Widget as label', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.star),
+                  Text('Featured'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.star), findsOneWidget);
+      expect(find.text('Featured'), findsOneWidget);
+    });
+
+    testWidgets('renders Widget as value', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'User',
+              value: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.person),
+                  Text('Jane'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('User'), findsOneWidget);
+      expect(find.byIcon(Icons.person), findsOneWidget);
+      expect(find.text('Jane'), findsOneWidget);
+    });
+
+    testWidgets('Widget value disables editing on tap', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'User',
+              value: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.person),
+                  Text('Jane'),
+                ],
+              ),
+              editable: true,
+              onValueChanged: (_) {},
+            ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(Pill));
+      await tester.pump();
+
+      // Should not enter edit mode since value is a Widget
+      expect(find.byType(TextField), findsNothing);
+    });
+
+    testWidgets('leading and showCheckIcon both render', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              leading: Icon(Icons.star),
+              selected: true,
+              showCheckIcon: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(find.byIcon(Icons.star), findsOneWidget);
+      expect(find.text('Tag'), findsOneWidget);
+    });
+
+    testWidgets('leading and trailing with value', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Key',
+              value: 'Value',
+              leading: Icon(Icons.vpn_key),
+              trailing: Icon(Icons.copy),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.vpn_key), findsOneWidget);
+      expect(find.byIcon(Icons.copy), findsOneWidget);
+      expect(find.text('Key'), findsOneWidget);
+      expect(find.text('Value'), findsOneWidget);
+    });
+  });
+
   group('Pill Layout', () {
     testWidgets('pill hugs content width when label only', (tester) async {
       // We place the pill in a Center within a SizedBox of width 500.

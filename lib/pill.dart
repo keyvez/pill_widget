@@ -294,12 +294,17 @@ class PillStyles {
 class Pill extends StatefulWidget {
   /// Creates a [Pill] widget.
   ///
-  /// The [label] parameter is required.
+  /// The [label] parameter is required and can be a [String] or a [Widget].
   /// If [value] is null, the pill will display only the label.
+  /// The [value] parameter can be a [String], a [Widget], or null.
+  /// The [leading] widget is rendered before the label inside the pill.
+  /// The [trailing] widget is rendered after the value (or label) inside the pill.
   const Pill({
     super.key,
     required this.label,
     this.value,
+    this.leading,
+    this.trailing,
     this.summary,
     this.onValueChanged,
     this.style,
@@ -308,16 +313,36 @@ class Pill extends StatefulWidget {
     this.selected = false,
     this.showCheckIcon = false,
     this.onTap,
-  });
+  })  : assert(
+          label is String || label is Widget,
+          'label must be a String or Widget',
+        ),
+        assert(
+          value == null || value is String || value is Widget,
+          'value must be a String, Widget, or null',
+        );
 
-  /// The text displayed on the left side of the pill.
-  final String label;
-
-  /// The text displayed on the right side of the pill.
+  /// The content displayed on the left side of the pill.
   ///
+  /// Can be a [String] (rendered as styled text) or a [Widget].
+  final dynamic label;
+
+  /// The content displayed on the right side of the pill.
+  ///
+  /// Can be a [String] (rendered as styled text), a [Widget], or null.
   /// If null, the pill displays only the [label].
-  /// If non-null and [editable] is true, tapping the pill enables inline editing.
-  final String? value;
+  /// If a [String] and [editable] is true, tapping the pill enables inline editing.
+  /// If a [Widget], editing is disabled regardless of the [editable] flag.
+  final dynamic value;
+
+  /// A widget displayed before the label inside the pill border.
+  ///
+  /// When both [leading] and [showCheckIcon] are provided, the check icon
+  /// renders first, then the leading widget.
+  final Widget? leading;
+
+  /// A widget displayed after the value (or label if no value) inside the pill border.
+  final Widget? trailing;
 
   /// A shorter version of the value to be displayed when the pill is collapsed.
   ///
@@ -391,6 +416,12 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
     forceStrutHeight: true,
   );
 
+  /// Whether the value is a [String].
+  bool get _hasStringValue => widget.value is String;
+
+  /// Whether the value is present (String or Widget).
+  bool get _hasValue => widget.value != null;
+
   // Resolved style values
   Color get _baseBorderColor => widget.style?.borderColor ?? Colors.black;
   Color get _labelColor => widget.style?.labelColor ?? Colors.black;
@@ -434,7 +465,9 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(text: widget.value ?? '');
+    _textController = TextEditingController(
+      text: _hasStringValue ? widget.value as String : '',
+    );
     _focusNode = FocusNode();
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus && _isEditing) {
@@ -449,8 +482,8 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(covariant Pill oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (!_isEditing && widget.value != oldWidget.value) {
-      _textController.text = widget.value ?? '';
+    if (!_isEditing && widget.value != oldWidget.value && _hasStringValue) {
+      _textController.text = widget.value as String;
     }
   }
 
@@ -470,7 +503,7 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
           setState(() {
             _isExpanded = !_isExpanded;
           });
-        } else if (widget.value != null && widget.editable) {
+        } else if (_hasStringValue && widget.editable) {
           setState(() {
             _isEditing = true;
           });
@@ -496,6 +529,55 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget _buildLabel(TextStyle labelStyle) {
+    if (widget.label is Widget) {
+      return widget.label as Widget;
+    }
+    return Text(widget.label as String, style: labelStyle);
+  }
+
+  Widget _buildValueWidget(TextStyle valueTextStyle) {
+    if (widget.value is Widget) {
+      return widget.value as Widget;
+    }
+    final stringValue = widget.value as String;
+    if (_isExpanded) {
+      return Text(
+        stringValue,
+        style: valueTextStyle,
+        strutStyle: _valueStrutStyle,
+      );
+    }
+    return Container(
+      height: _valueHeight,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        widthFactor: 1.0,
+        child: Text(
+          widget.summary ?? stringValue,
+          style: valueTextStyle,
+          strutStyle: _valueStrutStyle,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLeading() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12.0, right: 2.0),
+      child: widget.leading!,
+    );
+  }
+
+  Widget _buildTrailing() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 2.0, right: 12.0),
+      child: widget.trailing!,
+    );
+  }
+
   Widget _buildDisplayView() {
     final labelStyle = TextStyle(
       fontWeight: _labelFontWeight,
@@ -504,16 +586,23 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
     );
 
     final showCheck = widget.selected && widget.showCheckIcon;
+    final hasLeading = widget.leading != null;
+    final hasTrailing = widget.trailing != null;
 
-    if (widget.value == null) {
+    // Determine left padding for the label based on preceding elements
+    final hasLeadingElement = showCheck || hasLeading;
+
+    if (!_hasValue) {
       return Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (showCheck) _buildCheckIcon(),
+          if (hasLeading) _buildLeading(),
           Padding(
             padding: EdgeInsets.only(
-              left: showCheck ? 4.0 : 16.0,
-              right: 16.0,
+              left: hasLeadingElement ? 4.0 : 16.0,
+              right: hasTrailing ? 4.0 : 16.0,
               top: 8.0,
               bottom: 8.0,
             ),
@@ -522,10 +611,11 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
               child: Align(
                 alignment: Alignment.center,
                 widthFactor: 1.0,
-                child: Text(widget.label, style: labelStyle),
+                child: _buildLabel(labelStyle),
               ),
             ),
           ),
+          if (hasTrailing) _buildTrailing(),
         ],
       );
     } else {
@@ -535,9 +625,10 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (showCheck) _buildCheckIcon(),
+          if (hasLeading) _buildLeading(),
           Padding(
             padding: EdgeInsets.only(
-              left: showCheck ? 4.0 : 16.0,
+              left: hasLeadingElement ? 4.0 : 16.0,
               right: 8.5,
               top: 8.0,
               bottom: 8.0,
@@ -547,41 +638,23 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
               child: Align(
                 alignment: Alignment.center,
                 widthFactor: 1.0,
-                child: Text(widget.label, style: labelStyle),
+                child: _buildLabel(labelStyle),
               ),
             ),
           ),
           _PillDivider(color: _dividerColor),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: 8.5,
-                right: 16.0,
+                right: hasTrailing ? 4.0 : 16.0,
                 top: 8.0,
                 bottom: 8.0,
               ),
-              child: _isExpanded
-                  ? Text(
-                      widget.value!,
-                      style: valueTextStyle,
-                      strutStyle: _valueStrutStyle,
-                    )
-                  : Container(
-                      height: _valueHeight,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: 1.0,
-                        child: Text(
-                          widget.summary ?? widget.value!,
-                          style: valueTextStyle,
-                          strutStyle: _valueStrutStyle,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ),
+              child: _buildValueWidget(valueTextStyle),
             ),
           ),
+          if (hasTrailing) _buildTrailing(),
         ],
       );
     }
@@ -594,14 +667,20 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
       fontSize: widget.style?.fontSize,
     );
     final valueTextStyle = _valueTextStyle(context);
+    final hasLeading = widget.leading != null;
+    final hasTrailing = widget.trailing != null;
+    final showCheck = widget.selected && widget.showCheckIcon;
+    final hasLeadingElement = showCheck || hasLeading;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        if (showCheck) _buildCheckIcon(),
+        if (hasLeading) _buildLeading(),
         Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
+          padding: EdgeInsets.only(
+            left: hasLeadingElement ? 4.0 : 16.0,
             right: 8.5,
             top: 8.0,
             bottom: 8.0,
@@ -611,15 +690,15 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             child: Align(
               alignment: Alignment.center,
               widthFactor: 1.0,
-              child: Text(widget.label, style: labelStyle),
+              child: _buildLabel(labelStyle),
             ),
           ),
         ),
         _PillDivider(color: _dividerColor),
         Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             left: 8.5,
-            right: 16.0,
+            right: hasTrailing ? 4.0 : 16.0,
             top: 8.0,
             bottom: 8.0,
           ),
@@ -657,6 +736,7 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
             ),
           ),
         ),
+        if (hasTrailing) _buildTrailing(),
       ],
     );
   }

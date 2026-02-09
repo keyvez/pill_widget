@@ -1,3 +1,13 @@
+## 1.2.0
+
+* **Feature:** `label` and `value` now accept a `Widget` in addition to `String`, enabling arbitrary widget content inside pills.
+* **Feature:** Added `leading` parameter for placing a widget before the label (e.g., an icon).
+* **Feature:** Added `trailing` parameter for placing a widget after the value/label (e.g., an arrow icon).
+* **Improvement:** When `value` is a `Widget`, editing is automatically disabled regardless of the `editable` flag.
+* **Improvement:** `leading` and `showCheckIcon` coexist — the check icon renders first, then the leading widget.
+* Updated example app with custom widget content demos.
+* Full backward compatibility — all existing string-based usage works unchanged.
+
 ## 1.1.1
 
 * **Docs:** Added screenshot for selectable pills.

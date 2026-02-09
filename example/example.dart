@@ -285,6 +285,58 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
 
             const SizedBox(height: 24),
 
+            // Custom Widget Content Section
+            const Text(
+              'Custom Widget Content',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                // Leading icon
+                const Pill(
+                  label: 'Settings',
+                  leading: Icon(Icons.settings, size: 16),
+                  style: PillStyles.neutral,
+                ),
+                // Trailing icon
+                const Pill(
+                  label: 'Next',
+                  trailing: Icon(Icons.arrow_forward, size: 16),
+                  style: PillStyles.info,
+                ),
+                // Widget label
+                Pill(
+                  label: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.star, size: 16, color: Colors.amber),
+                      SizedBox(width: 4),
+                      Text('Featured'),
+                    ],
+                  ),
+                  style: PillStyles.warning,
+                ),
+                // Widget value
+                Pill(
+                  label: 'User',
+                  value: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.person, size: 16),
+                      SizedBox(width: 4),
+                      Text('Jane Doe'),
+                    ],
+                  ),
+                  style: PillStyles.special,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
             // Read-only with onTap
             const Text(
               'Read-only with Tap Handler',

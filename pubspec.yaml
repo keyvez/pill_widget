@@ -1,6 +1,6 @@
 name: pill_widget
 description: A customizable pill/chip widget for Flutter with inline editing support. Display labels with optional editable values in a sleek pill-shaped container.
-version: 1.1.1
+version: 1.2.0
 homepage: https://github.com/keyvez/pill_widget
 repository: https://github.com/keyvez/pill_widget
 issue_tracker: https://github.com/keyvez/pill_widget/issues
@@ -23,6 +23,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  uses-material-design: true
 
   # To add assets to your package, add an assets section, like this:
   # assets:
