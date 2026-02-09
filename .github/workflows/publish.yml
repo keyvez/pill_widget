@@ -17,5 +17,9 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter test --exclude-tags=golden
+      - name: Sync README version with pubspec.yaml
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+          sed -i "s/pill_widget: ^.*/pill_widget: ^$VERSION/" README.md
       - uses: dart-lang/setup-dart@v1
       - run: dart pub publish --force

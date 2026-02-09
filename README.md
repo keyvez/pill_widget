@@ -42,7 +42,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  pill_widget: ^0.1.0
+  pill_widget: ^1.2.3
 ```
 
 Then run:
