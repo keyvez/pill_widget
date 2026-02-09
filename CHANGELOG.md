@@ -1,3 +1,7 @@
+## 1.2.3
+
+* **Docs:** Fixed screenshots with neutral gray background for better visibility on both light and dark pages.
+
 ## 1.2.2
 
 * **Docs:** Regenerated screenshots with neutral gray background for better visibility on both light and dark pages.
