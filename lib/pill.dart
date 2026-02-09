@@ -31,6 +31,9 @@ class PillStyle {
     this.labelFontWeight,
     this.valueFontWeight,
     this.fontSize,
+    this.selectedBackgroundColor,
+    this.selectedBorderColor,
+    this.selectedBorderWidth,
   });
 
   /// The background color of the pill.
@@ -83,6 +86,21 @@ class PillStyle {
   /// Defaults to the theme's body medium text size.
   final double? fontSize;
 
+  /// The background color when the pill is selected.
+  ///
+  /// Defaults to the pill's [borderColor] with 15% opacity.
+  final Color? selectedBackgroundColor;
+
+  /// The border color when the pill is selected.
+  ///
+  /// Defaults to the pill's [borderColor].
+  final Color? selectedBorderColor;
+
+  /// The border width when the pill is selected.
+  ///
+  /// Defaults to 2.0.
+  final double? selectedBorderWidth;
+
   /// Creates a copy of this [PillStyle] with the given fields replaced.
   PillStyle copyWith({
     Color? backgroundColor,
@@ -95,6 +113,9 @@ class PillStyle {
     FontWeight? labelFontWeight,
     FontWeight? valueFontWeight,
     double? fontSize,
+    Color? selectedBackgroundColor,
+    Color? selectedBorderColor,
+    double? selectedBorderWidth,
   }) {
     return PillStyle(
       backgroundColor: backgroundColor ?? this.backgroundColor,
@@ -107,6 +128,10 @@ class PillStyle {
       labelFontWeight: labelFontWeight ?? this.labelFontWeight,
       valueFontWeight: valueFontWeight ?? this.valueFontWeight,
       fontSize: fontSize ?? this.fontSize,
+      selectedBackgroundColor:
+          selectedBackgroundColor ?? this.selectedBackgroundColor,
+      selectedBorderColor: selectedBorderColor ?? this.selectedBorderColor,
+      selectedBorderWidth: selectedBorderWidth ?? this.selectedBorderWidth,
     );
   }
 
@@ -124,6 +149,10 @@ class PillStyle {
       labelFontWeight: other.labelFontWeight ?? labelFontWeight,
       valueFontWeight: other.valueFontWeight ?? valueFontWeight,
       fontSize: other.fontSize ?? fontSize,
+      selectedBackgroundColor:
+          other.selectedBackgroundColor ?? selectedBackgroundColor,
+      selectedBorderColor: other.selectedBorderColor ?? selectedBorderColor,
+      selectedBorderWidth: other.selectedBorderWidth ?? selectedBorderWidth,
     );
   }
 }
@@ -276,6 +305,8 @@ class Pill extends StatefulWidget {
     this.style,
     this.editable = true,
     this.expandable = false,
+    this.selected = false,
+    this.showCheckIcon = false,
     this.onTap,
   });
 
@@ -320,6 +351,24 @@ class Pill extends StatefulWidget {
   /// Defaults to false.
   final bool expandable;
 
+  /// Whether the pill is in a selected state.
+  ///
+  /// When true, the pill displays with a highlighted appearance: a filled
+  /// background color and a thicker border. These can be customized via
+  /// [PillStyle.selectedBackgroundColor], [PillStyle.selectedBorderColor],
+  /// and [PillStyle.selectedBorderWidth].
+  ///
+  /// Defaults to false.
+  final bool selected;
+
+  /// Whether to show a check icon when the pill is [selected].
+  ///
+  /// When true and [selected] is true, a check icon is displayed at the
+  /// leading edge of the pill. The icon color matches the label color.
+  ///
+  /// Defaults to false.
+  final bool showCheckIcon;
+
   /// Called when the pill is tapped.
   ///
   /// This is called regardless of whether the pill is editable. If [editable]
@@ -343,18 +392,38 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
   );
 
   // Resolved style values
-  Color get _backgroundColor =>
-      widget.style?.backgroundColor ?? Colors.transparent;
-  Color get _borderColor => widget.style?.borderColor ?? Colors.black;
+  Color get _baseBorderColor => widget.style?.borderColor ?? Colors.black;
   Color get _labelColor => widget.style?.labelColor ?? Colors.black;
   Color get _valueColor => widget.style?.valueColor ?? _labelColor;
-  Color get _dividerColor => widget.style?.dividerColor ?? _borderColor;
-  double get _borderWidth => widget.style?.borderWidth ?? 1.0;
+  Color get _dividerColor => widget.style?.dividerColor ?? _baseBorderColor;
+  double get _baseBorderWidth => widget.style?.borderWidth ?? 1.0;
   double get _borderRadius => widget.style?.borderRadius ?? 24.0;
   FontWeight get _labelFontWeight =>
       widget.style?.labelFontWeight ?? FontWeight.bold;
   FontWeight get _valueFontWeight =>
       widget.style?.valueFontWeight ?? FontWeight.normal;
+
+  Color get _backgroundColor {
+    if (widget.selected) {
+      return widget.style?.selectedBackgroundColor ??
+          _baseBorderColor.withValues(alpha: 0.15);
+    }
+    return widget.style?.backgroundColor ?? Colors.transparent;
+  }
+
+  Color get _borderColor {
+    if (widget.selected) {
+      return widget.style?.selectedBorderColor ?? _baseBorderColor;
+    }
+    return _baseBorderColor;
+  }
+
+  double get _borderWidth {
+    if (widget.selected) {
+      return widget.style?.selectedBorderWidth ?? 2.0;
+    }
+    return _baseBorderWidth;
+  }
 
   BoxDecoration get _decoration => BoxDecoration(
         color: _backgroundColor,
@@ -415,6 +484,18 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget _buildCheckIcon() {
+    final iconSize = widget.style?.fontSize ?? 16.0;
+    return Padding(
+      padding: const EdgeInsets.only(left: 12.0, right: 2.0),
+      child: Icon(
+        Icons.check,
+        size: iconSize,
+        color: _labelColor,
+      ),
+    );
+  }
+
   Widget _buildDisplayView() {
     final labelStyle = TextStyle(
       fontWeight: _labelFontWeight,
@@ -422,22 +503,30 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
       fontSize: widget.style?.fontSize,
     );
 
+    final showCheck = widget.selected && widget.showCheckIcon;
+
     if (widget.value == null) {
-      return Padding(
-        padding: const EdgeInsets.only(
-          left: 16.0,
-          right: 16.0,
-          top: 8.0,
-          bottom: 8.0,
-        ),
-        child: Container(
-          height: _valueHeight,
-          child: Align(
-            alignment: Alignment.center,
-            widthFactor: 1.0,
-            child: Text(widget.label, style: labelStyle),
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (showCheck) _buildCheckIcon(),
+          Padding(
+            padding: EdgeInsets.only(
+              left: showCheck ? 4.0 : 16.0,
+              right: 16.0,
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: Container(
+              height: _valueHeight,
+              child: Align(
+                alignment: Alignment.center,
+                widthFactor: 1.0,
+                child: Text(widget.label, style: labelStyle),
+              ),
+            ),
           ),
-        ),
+        ],
       );
     } else {
       final valueTextStyle = _valueTextStyle(context);
@@ -445,9 +534,10 @@ class _PillState extends State<Pill> with SingleTickerProviderStateMixin {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          if (showCheck) _buildCheckIcon(),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
+            padding: EdgeInsets.only(
+              left: showCheck ? 4.0 : 16.0,
               right: 8.5,
               top: 8.0,
               bottom: 8.0,

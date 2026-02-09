@@ -1,3 +1,10 @@
+## 1.1.0
+
+* **Feature:** Added `selected` property to display pills in a selected/chosen state with tinted background and thicker border.
+* **Feature:** Added `showCheckIcon` property to optionally display a check icon when selected.
+* **Feature:** Added `selectedBackgroundColor`, `selectedBorderColor`, and `selectedBorderWidth` to `PillStyle` for customizing the selected appearance.
+* Updated example app with interactive selectable pills demo.
+
 ## 1.0.1
 
 * **Fix:** Updated README to embed YouTube videos for demos.

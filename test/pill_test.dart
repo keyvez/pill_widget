@@ -359,6 +359,189 @@ void main() {
     });
   });
 
+  group('Pill selectable', () {
+    testWidgets('selected pill has thicker border by default', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(label: 'Tag', selected: true),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      final border = decoration.border as Border;
+      expect(border.top.width, 2.0);
+    });
+
+    testWidgets('unselected pill has normal border width', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(label: 'Tag', selected: false),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      final border = decoration.border as Border;
+      expect(border.top.width, 1.0);
+    });
+
+    testWidgets('selected pill uses tinted background', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(label: 'Tag', selected: true),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      // Default border color is black, so selected bg should be black with 15% opacity
+      expect(decoration.color, isNot(Colors.transparent));
+      expect(decoration.color!.a, closeTo(0.15, 0.01));
+    });
+
+    testWidgets('selected pill uses custom selectedBackgroundColor',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              selected: true,
+              style: PillStyle(
+                selectedBackgroundColor: Colors.red,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      expect(decoration.color, Colors.red);
+    });
+
+    testWidgets('selected pill uses custom selectedBorderWidth',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              selected: true,
+              style: PillStyle(
+                selectedBorderWidth: 3.0,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      final border = decoration.border as Border;
+      expect(border.top.width, 3.0);
+    });
+
+    testWidgets('shows check icon when selected and showCheckIcon is true',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              selected: true,
+              showCheckIcon: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsOneWidget);
+    });
+
+    testWidgets('does not show check icon when selected but showCheckIcon is false',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              selected: true,
+              showCheckIcon: false,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsNothing);
+    });
+
+    testWidgets('does not show check icon when not selected even if showCheckIcon is true',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Tag',
+              selected: false,
+              showCheckIcon: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsNothing);
+    });
+
+    testWidgets('shows check icon with label and value', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Plan',
+              value: 'Premium',
+              selected: true,
+              showCheckIcon: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(find.text('Plan'), findsOneWidget);
+      expect(find.text('Premium'), findsOneWidget);
+    });
+
+    testWidgets('selected with preset style applies tinted background from preset border color',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Pill(
+              label: 'Info',
+              selected: true,
+              style: PillStyles.info,
+            ),
+          ),
+        ),
+      );
+
+      final container = tester.widget<DecoratedBox>(find.byType(DecoratedBox));
+      final decoration = container.decoration as BoxDecoration;
+      // Should NOT be the normal info background (0xFFE3F2FD)
+      // Should be the info border color (0xFF90CAF9) with 15% opacity
+      expect(decoration.color, isNot(const Color(0xFFE3F2FD)));
+      expect(decoration.color!.a, closeTo(0.15, 0.01));
+    });
+  });
+
   group('Pill Layout', () {
     testWidgets('pill hugs content width when label only', (tester) async {
       // We place the pill in a Center within a SizedBox of width 500.

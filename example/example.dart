@@ -31,6 +31,10 @@ class PillWidgetExample extends StatefulWidget {
 class _PillWidgetExampleState extends State<PillWidgetExample> {
   String _name = 'John Doe';
   String _email = 'john@example.com';
+  bool _selectedDefault = false;
+  bool _selectedSuccess = true;
+  bool _selectedCheck = true;
+  bool _selectedPlan = false;
 
   @override
   Widget build(BuildContext context) {
@@ -224,6 +228,57 @@ class _PillWidgetExampleState extends State<PillWidgetExample> {
                       'English claim to the French throne (1340–1801) (tap to see more)',
                   expandable: true,
                   style: PillStyles.neutral,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // Selectable Pills Section
+            const Text(
+              'Selectable Pills',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Tap to toggle selection',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                // Selected with default styling (thicker border + tinted background)
+                Pill(
+                  label: 'Default',
+                  selected: _selectedDefault,
+                  onTap: () => setState(() => _selectedDefault = !_selectedDefault),
+                ),
+                // Selected with a preset style
+                Pill(
+                  label: 'Success',
+                  selected: _selectedSuccess,
+                  style: PillStyles.success,
+                  onTap: () => setState(() => _selectedSuccess = !_selectedSuccess),
+                ),
+                // Selected with check icon
+                Pill(
+                  label: 'With Check',
+                  selected: _selectedCheck,
+                  showCheckIcon: true,
+                  style: PillStyles.info,
+                  onTap: () => setState(() => _selectedCheck = !_selectedCheck),
+                ),
+                // Selected with value and check icon
+                Pill(
+                  label: 'Plan',
+                  value: 'Premium',
+                  selected: _selectedPlan,
+                  showCheckIcon: true,
+                  editable: false,
+                  style: PillStyles.special,
+                  onTap: () => setState(() => _selectedPlan = !_selectedPlan),
                 ),
               ],
             ),
