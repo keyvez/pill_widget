@@ -17,4 +17,5 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter test --exclude-tags=golden
-      - run: flutter pub publish --force
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub publish --force
