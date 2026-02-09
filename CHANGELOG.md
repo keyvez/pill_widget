@@ -1,3 +1,7 @@
+## 1.2.4
+
+* **Docs:** Updated README installation version to stay current.
+
 ## 1.2.3
 
 * **Docs:** Fixed screenshots with neutral gray background for better visibility on both light and dark pages.
