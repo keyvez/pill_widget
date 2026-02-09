@@ -8,9 +8,10 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
+    // Load Roboto fonts
     final fontPath = '${Directory.current.path}/test/fonts/Roboto-Regular.ttf';
     final fontFile = File(fontPath);
-    
+
     if (!fontFile.existsSync()) {
       print('⚠️ Font file not found at: $fontPath');
       return;
@@ -18,7 +19,7 @@ void main() {
 
     try {
       final fontLoader = FontLoader('Roboto');
-      
+
       final regularData = await fontFile.readAsBytes();
       fontLoader.addFont(Future.value(ByteData.view(regularData.buffer)));
 
@@ -32,6 +33,47 @@ void main() {
       print('✅ Loaded font Roboto (Regular & Bold) from test/fonts/');
     } catch (e) {
       print('❌ Failed to load font: $e');
+    }
+
+    // Load MaterialIcons font for icon rendering in golden tests
+    try {
+      final flutterRoot = Platform.environment['FLUTTER_ROOT'] ??
+          File(Platform.resolvedExecutable).parent.parent.parent.path;
+
+      // Search common Flutter SDK locations for the MaterialIcons font
+      final candidates = [
+        '$flutterRoot/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
+        // Fallback: resolve from the `flutter` command
+      ];
+
+      // Also try resolving from the `flutter` symlink
+      final whichResult = Process.runSync('which', ['flutter']);
+      if (whichResult.exitCode == 0) {
+        final flutterBin = File(whichResult.stdout.toString().trim()).resolveSymbolicLinksSync();
+        final sdkRoot = File(flutterBin).parent.parent.path;
+        candidates.add('$sdkRoot/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf');
+      }
+
+      File? iconsFile;
+      for (final path in candidates) {
+        final f = File(path);
+        if (f.existsSync()) {
+          iconsFile = f;
+          break;
+        }
+      }
+
+      if (iconsFile != null) {
+        final iconFontLoader = FontLoader('MaterialIcons');
+        final iconData = await iconsFile.readAsBytes();
+        iconFontLoader.addFont(Future.value(ByteData.view(iconData.buffer)));
+        await iconFontLoader.load();
+        print('✅ Loaded MaterialIcons font');
+      } else {
+        print('⚠️ MaterialIcons font not found');
+      }
+    } catch (e) {
+      print('⚠️ Could not load MaterialIcons font: $e');
     }
   });
 
