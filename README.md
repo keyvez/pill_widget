@@ -22,11 +22,11 @@ A customizable pill/chip widget for Flutter with inline editing support and exte
 
 | | |
 |---|---|
-| **Basic Pills**<br>![Basic Pills](screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](screenshots/editable_pills.png) |
-| **Styled Pills**<br>![Styled Pills](screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](screenshots/styled_values_pills.png) |
-| **Custom Styles**<br>![Custom Styles](screenshots/custom_pills.png) | **Read-only**<br>![Read-only](screenshots/readonly_pills.png) |
-| **Selectable Pills**<br>![Selectable Pills](screenshots/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](screenshots/expandable_pills.png) |
-| **Custom Widget Content**<br>![Widget Content](screenshots/widget_content_pills.png) | |
+| **Basic Pills**<br>![Basic Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/basic_pills.png) | **Editable Pills**<br>![Editable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/editable_pills.png) |
+| **Styled Pills**<br>![Styled Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/styled_pills.png) | **Styled Pills with Values**<br>![Styled Pills with Values](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/styled_values_pills.png) |
+| **Custom Styles**<br>![Custom Styles](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/custom_pills.png) | **Read-only**<br>![Read-only](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/readonly_pills.png) |
+| **Selectable Pills**<br>![Selectable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/selectable_pills.png) | **Expandable Pills**<br>![Expandable Pills](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/expandable_pills.png) |
+| **Custom Widget Content**<br>![Widget Content](https://raw.githubusercontent.com/keyvez/pill_widget/main/screenshots/widget_content_pills.png) | |
 
 ## Videos
 
